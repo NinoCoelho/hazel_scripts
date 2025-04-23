@@ -23,6 +23,28 @@ show_info_dialog() {
     osascript -e "display dialog \"$message\" with title \"$title\" buttons {\"OK\"} default button \"OK\""
 }
 
+# Function to show progress dialog
+show_progress_dialog() {
+    local title="$1"
+    local message="$2"
+    osascript <<EOF
+    tell application "System Events"
+        activate
+        display dialog "$message" with title "$title" buttons {"Cancel"} default button "Cancel" giving up after 3600
+    end tell
+EOF
+}
+
+# Function to close progress dialog
+close_progress_dialog() {
+    osascript <<EOF
+    tell application "System Events"
+        set frontmost to true
+        keystroke return
+    end tell
+EOF
+}
+
 # Diretório de destino para as importações
 SOURCE_FOLDER=$1
 echo "Source folder $SOURCE_FOLDER"
@@ -84,8 +106,17 @@ find "$DCIM_PATH" -mindepth 1 -maxdepth 1 -type d | while read SUBDIR; do
     echo "Criando pasta: $DEST"
     mkdir -p "$DEST"
     echo "Copiando de $SUBDIR para $DEST"
+    
+    # Show progress dialog in background
+    show_progress_dialog "Importando Arquivos" "Copiando arquivos de $BASENAME..." &
+    PROGRESS_PID=$!
+    
     # Use rsync to copy only new files
     rsync -av --ignore-existing "$SUBDIR/" "$DEST/"
+    
+    # Close progress dialog
+    close_progress_dialog
+    wait $PROGRESS_PID
 
     # Notify completion
     show_notification "Import Complete" "Finished importing $BASENAME to $DEST"
