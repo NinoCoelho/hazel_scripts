@@ -4,11 +4,12 @@ A collection of utility scripts for macOS, including a camera import tool with a
 
 ## Camera Import Script (`import_dcim_camera_detect.sh`)
 
-A sophisticated script for importing photos from digital cameras and memory cards to your Mac, with automatic camera detection and user-friendly notifications.
+A sophisticated script for importing photos and videos from digital cameras and memory cards to your Mac, with automatic camera detection and user-friendly notifications.
 
 ### Features
 
 - 🔍 Automatic camera type detection (DJI, Sony, Canon, Nikon, Panasonic)
+- 🎥 Video file detection (.MP4, .MOV)
 - 📁 Organized import structure with timestamps
 - 🔔 macOS notifications for import status
 - ✅ Per-folder import confirmation
@@ -32,13 +33,14 @@ A sophisticated script for importing photos from digital cameras and memory card
    - Offers option to delete source files
 3. Shows completion message when done
 
-### Supported Camera Types
+### Supported File Types
 
 - DJI (drones)
 - Sony (.ARW files)
 - Canon (.CR2 files)
 - Nikon (.NEF files)
 - Panasonic Lumix (.RW2 files)
+- Video files (.MP4, .MOV)
 - Generic JPG files
 
 ### Destination Structure
@@ -48,7 +50,7 @@ Files are organized in the following structure:
 ~/Pictures/Importacoes/
 └── YYYY-MM-DD_HH-MM_CAMERA/
     └── ORIGINAL_FOLDER_NAME/
-        └── [your photos]
+        └── [your photos and videos]
 ```
 
 ### Requirements
@@ -74,7 +76,7 @@ Files are organized in the following structure:
 - The script maintains a log of imported folders to prevent duplicate imports
 - All operations are confirmed via macOS native dialogs
 - Source files are only deleted after explicit user confirmation
-- The script handles multiple camera types in the same import session
+- The script handles multiple camera types and video files in the same import session
 
 ### License
 

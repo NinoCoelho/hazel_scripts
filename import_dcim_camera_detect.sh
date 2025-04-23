@@ -77,6 +77,8 @@ find "$DCIM_PATH" -mindepth 1 -maxdepth 1 -type d | while read SUBDIR; do
         SUFFIX="Nikon"
     elif ls "$SUBDIR"/*.RW2 &>/dev/null; then
         SUFFIX="Panasonic"
+    elif ls "$SUBDIR"/*.MP4 &>/dev/null || ls "$SUBDIR"/*.MOV &>/dev/null; then
+        SUFFIX="Video"
     elif ls "$SUBDIR"/*.JPG &>/dev/null; then
         SUFFIX="JPG"
     fi
