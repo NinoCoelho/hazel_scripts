@@ -1,0 +1,12 @@
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Shell script related
+*.log
+*.swp
+*.swo
+
+# Imported files directory
+Importacoes/ 
