@@ -1,0 +1,80 @@
+# Hazel Scripts
+
+A collection of utility scripts for macOS, including a camera import tool with advanced features.
+
+## Camera Import Script (`import_dcim_camera_detect.sh`)
+
+A sophisticated script for importing photos from digital cameras and memory cards to your Mac, with automatic camera detection and user-friendly notifications.
+
+### Features
+
+- 🔍 Automatic camera type detection (DJI, Sony, Canon, Nikon)
+- 📁 Organized import structure with timestamps
+- 🔔 macOS notifications for import status
+- ✅ Per-folder import confirmation
+- 🗑️ Optional file deletion after import
+- 📝 Import history tracking to prevent duplicates
+
+### Usage
+
+```bash
+./import_dcim_camera_detect.sh /path/to/memory/card
+```
+
+### Import Process
+
+1. The script searches for a DCIM folder in the specified path
+2. For each folder found:
+   - Detects the camera type based on file extensions
+   - Asks for confirmation before importing
+   - Creates a timestamped destination folder
+   - Copies files with progress notifications
+   - Offers option to delete source files
+3. Shows completion message when done
+
+### Supported Camera Types
+
+- DJI (drones)
+- Sony (.ARW files)
+- Canon (.CR2 files)
+- Nikon (.NEF files)
+- Generic JPG files
+
+### Destination Structure
+
+Files are organized in the following structure:
+```
+~/Pictures/Importacoes/
+└── YYYY-MM-DD_HH-MM_CAMERA/
+    └── ORIGINAL_FOLDER_NAME/
+        └── [your photos]
+```
+
+### Requirements
+
+- macOS
+- Bash shell
+- Basic system permissions for file operations
+
+### Installation
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/NinoCoelho/hazel_scripts.git
+   ```
+
+2. Make the script executable:
+   ```bash
+   chmod +x import_dcim_camera_detect.sh
+   ```
+
+### Notes
+
+- The script maintains a log of imported folders to prevent duplicate imports
+- All operations are confirmed via macOS native dialogs
+- Source files are only deleted after explicit user confirmation
+- The script handles multiple camera types in the same import session
+
+### License
+
+This project is open source and available under the MIT License. 
