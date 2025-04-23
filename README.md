@@ -8,7 +8,7 @@ A sophisticated script for importing photos from digital cameras and memory card
 
 ### Features
 
-- 🔍 Automatic camera type detection (DJI, Sony, Canon, Nikon)
+- 🔍 Automatic camera type detection (DJI, Sony, Canon, Nikon, Panasonic)
 - 📁 Organized import structure with timestamps
 - 🔔 macOS notifications for import status
 - ✅ Per-folder import confirmation
@@ -38,6 +38,7 @@ A sophisticated script for importing photos from digital cameras and memory card
 - Sony (.ARW files)
 - Canon (.CR2 files)
 - Nikon (.NEF files)
+- Panasonic Lumix (.RW2 files)
 - Generic JPG files
 
 ### Destination Structure
