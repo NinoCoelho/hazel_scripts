@@ -38,16 +38,7 @@ if [ ! -d "$DCIM_PATH" ]; then
 fi
 
 # Caminho para o log de importações
-IMPORT_LOG="$DEST_ROOT/.imported_folders.log"
 mkdir -p "$DEST_ROOT"
-touch "$IMPORT_LOG"
-
-# Função para verificar se já foi importado
-already_imported() {
-    local folder_path="$1"
-    local folder_timestamp="$2"
-    grep -F "${folder_path}|${folder_timestamp}" "$IMPORT_LOG" >/dev/null
-}
 
 # Lista as subpastas do DCIM
 find "$DCIM_PATH" -mindepth 1 -maxdepth 1 -type d | while read SUBDIR; do
@@ -57,13 +48,6 @@ find "$DCIM_PATH" -mindepth 1 -maxdepth 1 -type d | while read SUBDIR; do
     
     # Get folder timestamp
     FOLDER_TIMESTAMP=$(stat -f "%Sm" -t "%Y-%m-%d_%H-%M" "$SUBDIR")
-
-    # Se já foi importado, ignora
-    if already_imported "$RELATIVE_PATH" "$FOLDER_TIMESTAMP"; then
-        echo "Já importado: $RELATIVE_PATH (timestamp: $FOLDER_TIMESTAMP)"
-        show_notification "Folder Ignored" "Skipped $BASENAME (already imported)"
-        continue
-    fi
 
     # Detectar tipo de câmera pelo nome da pasta ou arquivos
     SUFFIX=""
@@ -100,11 +84,8 @@ find "$DCIM_PATH" -mindepth 1 -maxdepth 1 -type d | while read SUBDIR; do
     echo "Criando pasta: $DEST"
     mkdir -p "$DEST"
     echo "Copiando de $SUBDIR para $DEST"
-    cp -Rv "$SUBDIR"/* "$DEST"
-
-    # Registra no log com timestamp
-    echo "Registrando $RELATIVE_PATH (timestamp: $FOLDER_TIMESTAMP) no log"
-    echo "${RELATIVE_PATH}|${FOLDER_TIMESTAMP}" >> "$IMPORT_LOG"
+    # Use rsync to copy only new files
+    rsync -av --ignore-existing "$SUBDIR/" "$DEST/"
 
     # Notify completion
     show_notification "Import Complete" "Finished importing $BASENAME to $DEST"

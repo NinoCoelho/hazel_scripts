@@ -14,7 +14,7 @@ A sophisticated script for importing photos and videos from digital cameras and 
 - 🔔 macOS notifications for import status
 - ✅ Per-folder import confirmation
 - 🗑️ Optional file deletion after import
-- 📝 Import history tracking to prevent duplicates
+- 🔄 Incremental imports (only new files are copied)
 
 ### Usage
 
@@ -29,7 +29,7 @@ A sophisticated script for importing photos and videos from digital cameras and 
    - Detects the camera type based on file extensions
    - Asks for confirmation before importing
    - Creates a timestamped destination folder
-   - Copies files with progress notifications
+   - Copies only new files with progress notifications
    - Offers option to delete source files
 3. Shows completion message when done
 
@@ -58,6 +58,7 @@ Files are organized in the following structure:
 - macOS
 - Bash shell
 - Basic system permissions for file operations
+- rsync (included with macOS)
 
 ### Installation
 
@@ -73,10 +74,11 @@ Files are organized in the following structure:
 
 ### Notes
 
-- The script maintains a log of imported folders to prevent duplicate imports
+- The script uses rsync to ensure only new files are copied
 - All operations are confirmed via macOS native dialogs
 - Source files are only deleted after explicit user confirmation
 - The script handles multiple camera types and video files in the same import session
+- You can safely run the script multiple times on the same card - it will only copy new files
 
 ### License
 
